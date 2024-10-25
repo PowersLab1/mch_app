@@ -1,6 +1,6 @@
 {
   "taskVersion": "1.0.0",
-  "taskName": "mch_app",
+  "taskName": "MCH_Task",
   "debug": false,
   "awsLambda": {
     "saveTaskData": {

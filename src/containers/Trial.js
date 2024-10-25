@@ -98,13 +98,16 @@ class Trial extends Component {
       // confidence vs surprisal state
       confidenceFinished: false,
       surprisalReady: false,
+
+      //key dead zone
+      keyInput: false,
     };
 
     // class props init
     this.canvasRef = React.createRef();
     this.audioContext = new AudioContext();
     this.initialDelay = 2000; // time until first stimulus, in ms
-    this.delay = 2500; // time in between stimuli, in ms
+    this.delay = 5000; // time in between stimuli, in ms
     this.numAttempts = 0;
     this.numAttemptsLimit = 1000;
 
@@ -194,6 +197,8 @@ class Trial extends Component {
     const amp = that.props.decibels[that.state.index];
 
     if (that.props.audioSource.length == 0) {
+      that.setState({keyInput: true}); 
+      console.log('key inputs true')
       setTimeout(() => {
         // Play stimuli
         that.playVisualStimulus(VISUAL_STIMULUS_MS);
@@ -223,9 +228,16 @@ class Trial extends Component {
       melody.volume = 0.3;
       melody.play();
 
+      setTimeout(() => {
+        that.setState({keyInput: true}); 
+        console.log('key inputs true')
+      }, 2300);
       
       setTimeout(() => {
         // Play stimuli
+        // that.setState({keyInput: true}); 
+        // console.log('key inputs true')
+        console.log('visual stimulus playing')
         that.playVisualStimulus(VISUAL_STIMULUS_MS);
 
 
@@ -233,14 +245,9 @@ class Trial extends Component {
         melody.pause();
         melody.currentTime = 0;
 
-        //// prev code
-        // playAuditoryStimulus(auditoryStim, that.audioContext, STIMULUS_MS, amp);
-
         // new code
         let GNote = new Audio(gNoteSound);
-        console.log("real dec " + amp)
         let amptovol = 0.00000498574*Math.pow(1.18765, amp)
-        console.log("real volume" + amptovol)
         GNote.volume = amptovol;
         GNote.play();
 
@@ -421,8 +428,10 @@ class Trial extends Component {
 
               //reset variables
               that.setState({ surprisalReady: false,
-                confidenceFinished: false
+                confidenceFinished: false,
+                keyInput: false,
               });
+              console.log('key inputs false')
               return;
             }
             if (!that.state.stopIncrementingSurprisal) {
@@ -434,9 +443,9 @@ class Trial extends Component {
 
         function checkReady() {
           if(that.state.surprisalReady == false) {
-             that.finishedTimer = setTimeout(() => {checkReady(); console.log("not ready")}, 100); /* this checks the flag every 100 milliseconds*/
+             that.finishedTimer = setTimeout(() => {checkReady()}, 100); /* this checks the flag every 100 milliseconds*/
           } else {
-            console.log("STARTING")
+            that.surprisalStartTime = new Date().getTime();
             scheduleSurprisal();
           }
         }
@@ -466,7 +475,6 @@ class Trial extends Component {
         scheduleRating();
      } else if (this.props.shouldRecordRatings) {
         clearTimeout(this.stimulusTimer);
-        console.log('recording ratings')
         this.setState({
           ratingWindow: true,
           currentRating: that.numIterations || 1,
@@ -483,6 +491,10 @@ class Trial extends Component {
               that.prevKey = null;
 
               that.finishRatingWindow();
+              that.setState({
+                keyInput: false,
+              });
+              console.log('key inputs false')
               return;
             }
             if (!that.state.stopIncrementingRating) {
@@ -512,6 +524,10 @@ class Trial extends Component {
       return;
     }
 
+    if (this.state.keyInput == false) {
+      return;
+    };
+
     // First, check whether key is pressed for the first time or key is being
     // held down. If it's being held down we ignore it.
     if (_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
@@ -528,16 +544,15 @@ class Trial extends Component {
 
     if (this.prevKey !== event.keyCode) return;
 
+
     clearTimeout(this.timebox);
     this.timebox = setTimeout(() => {
       if (this.props.shouldRecordSurprisals) {
-        console.log('should record surprisals')
         if (this.state.confidenceFinished) {
-          console.log('confidence is finished and key has been clicked')
           this.setState({ stopIncrementingSurprisal: false });
           this.setState({ surprisalReady: true });
+          this.surprisalStartTime = new Date().getTime();
         } else {
-          console.log('confidence is not finished and key has been clicked')
           this.setState({ stopIncrementingRating: false });
           this.recordResponse(event);
         }
@@ -549,6 +564,11 @@ class Trial extends Component {
   };
 
   keyUpFunction = (event) => {
+    if (this.state.keyInput == false) {
+      console.log('IGNORE IGNORE up')
+      return;
+    };
+
     if (this.props.shouldRecordSurprisals) {
       if (_.includes([Q_KEY_CODE, E_KEY_CODE], event.keyCode)) {
         this.isKeyDown[event.keyCode] = false;
@@ -562,13 +582,16 @@ class Trial extends Component {
       }
 
       if (!this.state.surprisalReady) {
-        console.log('first up')
-        console.log('stop incrementing rating')
         this.setState({ stopIncrementingRating: true });
       } else {
-        console.log('stop incrementing surprisal ')
-        console.log('second up')
         this.setState({ stopIncrementingSurprisal: true });
+        const responseKeyCode =
+            _.last(this.response) == 1 ? Q_KEY_CODE : E_KEY_CODE;
+          if (responseKeyCode == event.keyCode) {
+            this.addTimestamp("surprisal");
+            var ms = new Date().getTime();
+            this.surprisalsRaw.push(ms - this.surprisalStartTime);
+        }
       }
       if (this.state.surprisalWindow) {
         if (this.timebox) {

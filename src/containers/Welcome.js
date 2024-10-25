@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from "../media/psych_logo.jpg"
 import './Welcome.css';
 import {Redirect} from "react-router-dom";
-import {setEncryptedMetadata, getEncryptedMetadata, getDataSent, setSurveyUrl} from '../store';
+import {setEncryptedMetadata, getEncryptedMetadata, getDataSent, setSurveyUrl, download} from '../store';
 
 var qs = require('query-string');
 var _ = require('lodash');
@@ -28,7 +28,6 @@ class Welcome extends Component {
 
   componentDidMount(){
     document.addEventListener("keydown", this.keyFunction, false);
-
     // Check if we're given an encrypted id
     const params = qs.parse(
       this.props.location.search,
@@ -78,7 +77,7 @@ class Welcome extends Component {
         <header className="Welcome-header">
         <div className="text-container">
           <p className="Welcome-text">
-            <span className="bigger">Welcome to the study! Hello! </span>
+            <span className="bigger">Welcome to the study! </span>
             <br /><br /> In this task you will hear a series of 6 note melodies. 
             <br /><br /> You will be asked to indicate whether you hear the final note of the melody being played. 
             <br /><br />Please enter responses to the questions asked by pressing the:

@@ -275,3 +275,14 @@ export function clearTaskData() {
   // Remember to persist
   LocalStorageBackedStore.save();
 }
+
+
+
+export function download() {
+  const element = document.createElement("a");
+  const textFile = new Blob([JSON.stringify(localStorage)], {type: 'text/plain'}); //pass data from localStorage API to blob
+  element.href = URL.createObjectURL(textFile);
+  element.download = "MCH_tast_data.txt";
+  document.body.appendChild(element); 
+  element.click();
+}
