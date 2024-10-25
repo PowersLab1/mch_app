@@ -1,6 +1,6 @@
 {
   "taskVersion": "1.0.0",
-  "taskName": "MCH_Task",
+  "taskName": "auditory_6m_fu",
   "debug": false,
   "awsLambda": {
     "saveTaskData": {
