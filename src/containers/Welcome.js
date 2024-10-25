@@ -78,7 +78,7 @@ class Welcome extends Component {
         <header className="Welcome-header">
         <div className="text-container">
           <p className="Welcome-text">
-            <span className="bigger">Welcome to the study! </span>
+            <span className="bigger">Welcome to the study! Hello! </span>
             <br /><br /> In this task you will hear a series of 6 note melodies. 
             <br /><br /> You will be asked to indicate whether you hear the final note of the melody being played. 
             <br /><br />Please enter responses to the questions asked by pressing the:
