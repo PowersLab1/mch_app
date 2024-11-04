@@ -46,8 +46,11 @@ class ThankYou extends Component {
     const encryptedMetadata = getEncryptedMetadata();
     const storeExport = getStoreExport();
 
+    console.log ("encryptedMeta" + encryptedMetadata)
+
     // Load up link if not localhost
     if (!isLocalhost) {
+      console.log("survey url" + getSurveyUrl())
       if (_.isUndefined(getSurveyUrl())) {
         aws_fetchLink(encryptedMetadata).then(
           (link) => this.setState({link: link})
@@ -62,6 +65,7 @@ class ThankYou extends Component {
 
     // If we already sent data, nothing to do.
     if (getDataSent()) {
+      console.log('Data has been sent')
       this.setState({sentData: true});
       return;
     }
@@ -75,6 +79,8 @@ class ThankYou extends Component {
     // Send data, only if it is complete
     if (!isStoreComplete()) {
       // Store isn't complete so something went wrong. Clear the whole store.
+      console.log('Store is not complete')
+      console.log(encryptedMetadata)
       clearStore();
       this.setState({invalid: true});
       return;
@@ -93,8 +99,10 @@ class ThankYou extends Component {
     // Send request and mark data as sent
     aws_saveTaskData(encryptedMetadata, storeExport).then(
       () => {
+        console.log("Sending Data")
         setDataSent(true);
         this.setState({sentData: true});
+        console.log("Data has been successfully sent!")
 
         // Since we're using localStorage to persist information,
         // we clear trial data after we send so it doesn't linger.
