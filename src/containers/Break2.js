@@ -45,6 +45,7 @@ class Break2 extends Component {
                 <br /><br /> If you hold the key down for a long time, the final note was a <b> GOOD FIT </b>.
                 <br /><br /> If you hold the key down for a short time, the final note was a <b> BAD FIT </b>.
                 <br /><br /> Please respond as <b> QUICKLY </b> and as <b> ACCURATELY </b> as you <b> POSSIBLY CAN </b>
+                <br /><br /> Please remember to keep your eyes on the fixation cross throughout the task!
                 <br /><br /><br /> PRESS "Q"/YES TO CONTINUE WITH THE NEXT PART
 
               </p>

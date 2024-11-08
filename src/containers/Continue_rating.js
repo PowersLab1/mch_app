@@ -41,12 +41,13 @@ class Continue_rating extends Component {
             <p className="Continue_rating-text">
             Great!
             <br /><br /> Second task complete! You will do the same thing in the next task, with some important differences:
-            <br /><br /> After the certainty rating screen you will see another rating screen following each diagonal red stripes, press
-            <br /><br /> and then hold the same key from the previous rating screen.
+            <br /><br /> After the certainty rating screen you will see another rating screen where you are to indicate how well
+            <br /><br /> the final note fit into the rest of the melody. Press and then hold the same key from the previous rating screen.
             <br /><br /> The longer you hold it down, the better the final note fit into the melody.
             <br /><br /> If you hold the key down for a long time, the final note was a <b> GOOD FIT </b>.
             <br /><br /> If you hold the key down for a short time, the final note was a <b> BAD FIT </b>.
             <br /><br /> Please respond as <b> QUICKLY </b> and as <b> ACCURATELY </b> as you <b> POSSIBLY CAN </b>
+            <br /><br /> Please remember to keep your eyes on the fixation cross throughout the task!
             <br /><br /><br /> PRESS "Q"/YES WHEN READY TO CONTINUE.
             </p>
           </div>
