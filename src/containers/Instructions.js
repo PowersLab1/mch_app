@@ -40,7 +40,7 @@ class Instructions extends Component {
               <p className="Instructions-text">
               This is a hearing test.
               <br /><br /> Auditory white noise (like static radio) will be played throughout the experiment.
-              <br /><br /> If the final note of the melody is played, it will play at the same time as diagonal red stripes appear on the screen.
+              <br /><br /> If the final note of the melody is played, it will play at the same time as horizontal red stripes appear on the screen.
               <br /><br /> Thus, only respond when you see the stripes. Please keep your eyes on the fixation cross at the center of the screen throughout the whole task.
               <br /><br /> Press  <font size="+2">  <b> "Q"/YES </b> </font> if you <b> DO </b> hear a note when you see the striped screen.
               <br /><br /> Press <font size="+2"> <b> "E"/NO </b> </font> if you <b> DO NOT </b> hear a note when you see the striped screen.

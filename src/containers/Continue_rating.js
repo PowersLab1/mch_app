@@ -46,7 +46,7 @@ class Continue_rating extends Component {
             <br /><br /> The longer you hold it down, the better the final note fit into the melody.
             <br /><br /> If you hold the key down for a long time, the final note was a <b> GOOD FIT </b>.
             <br /><br /> If you hold the key down for a short time, the final note was a <b> BAD FIT </b>.
-            <br /><br /> So, for this task you will see the certainty ratiing screen first followed by the fit rating screen.
+            <br /><br /> So, for this task you will see the certainty rating screen first followed by the fit rating screen.
             <br /><br /> Please respond as <b> QUICKLY </b> and as <b> ACCURATELY </b> as you <b> POSSIBLY CAN </b>
             <br /><br /> Please remember to keep your eyes on the fixation cross throughout the task!
             <br /><br /><br /> PRESS "Q"/YES WHEN READY TO CONTINUE.
