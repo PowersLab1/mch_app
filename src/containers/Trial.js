@@ -258,7 +258,7 @@ class Trial extends Component {
           that.delay + that.jitter()
         );
         
-      }, 2250);
+      }, 2000);
 
       this.addTimestamp("stim");
     }
