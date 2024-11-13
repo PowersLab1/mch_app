@@ -17,7 +17,7 @@ import { getStore, getEncryptedMetadata, getDataSent } from "../store";
 
 // const mySound = require("../media/demoG.mp3");
 
-import gNoteSound from "../media/Gtone.wav";
+import gNoteSound from "../media/Gtone.mp3";
 
 
 import HearClips from "../lib/PracticeHearAudio.js";
@@ -306,6 +306,8 @@ class Trial extends Component {
   componentDidMount() {
     document.addEventListener("keydown", this.keyDownFunction, false);
     document.addEventListener("keyup", this.keyUpFunction, false);
+
+    melodies = [] // reset melodies 
 
     for (let i = 0; i < this.props.audioSource.length; i ++) {
       melodies.push(new Audio(this.props.audioSource[i]));
